@@ -58,7 +58,36 @@ To build a **real-world, production-ready e-learning platform** that helps learn
 
 ---
 
-## NOW GO FOR BACKEND
+# 🚀 TechEdu Backend
+
+TechEdu is an **E-Learning Platform Backend** built using **Node.js, Express.js, and MongoDB**.  
+This backend handles APIs for users, courses, and future features like authentication, admin panel, and payments.
+
+---
+
+## 📌 Features
+
+- RESTful APIs using Express.js
+- Clean folder structure (MVC pattern)
+- Environment variable management with dotenv
+- Auto-restart using Nodemon
+- User routes & controllers
+- Backend ready for course management
+- Easy API testing with Postman / Thunder Client
+
+---
+
+## 🛠️ Tech Stack
+
+- **Node.js**
+- **Express.js**
+- **MongoDB**
+- **Mongoose**
+- **dotenv**
+- **cors**
+- **nodemon**
+
+---
 
 ## 📌 Author
 
