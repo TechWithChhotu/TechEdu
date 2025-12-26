@@ -74,6 +74,14 @@ This backend handles APIs for users, courses, and future features like authentic
 - User routes & controllers
 - Backend ready for course management
 - Easy API testing with Postman / Thunder Client
+- 📱 OTP-based Login & Registration (Phone Number)
+- 🔐 Secure Authentication using JWT
+- 🍪 JWT stored in HTTP Cookies (`TechEdu`)
+- ⚡ Redis-based OTP storage with expiration
+- 🧪 Input validation using express-validator
+- 📦 Modular MVC architecture
+- 🔄 Auto-restart using Nodemon
+- 🧠 Scalable backend design
 
 ---
 
@@ -87,7 +95,106 @@ This backend handles APIs for users, courses, and future features like authentic
 - **cors**
 - **nodemon**
 
-**TEST**
+# 🔐 Gitleaks Complete Guide (Beginner → Advanced)
+
+This document explains **what Gitleaks is**, **why GitHub blocks pushes**, **how to detect secrets**, and **how to fix & prevent issues**, based on real-world usage.
+
+---
+
+## 📌 What is Gitleaks?
+
+**Gitleaks** is a security tool that scans your codebase for **secrets**, such as:
+
+- API Keys
+- Tokens (JWT, Twilio, Stripe, etc.)
+- Passwords
+- Private Keys
+- OAuth secrets
+
+It helps prevent **accidental secret leaks** to GitHub.
+
+---
+
+## 🔥 Why GitHub Blocks Pushes (Push Protection)
+
+GitHub has **Push Protection** enabled by default.
+
+If **any commit (past or present)** contains a secret:
+
+- GitHub **blocks the push**
+- Even if the file is deleted later
+- Even if `.gitignore` is used
+
+> ⚠️ `.gitignore` does **NOT** remove secrets from commit history.
+
+---
+
+## 🧠 Difference Between Gitleaks & GitHub Scan
+
+| Tool                   | What it scans         |
+| ---------------------- | --------------------- |
+| `gitleaks detect`      | Local git history     |
+| `gitleaks --no-git`    | Current files only    |
+| GitHub Push Protection | Entire commit history |
+
+---
+
+## ⚙️ Installation (Windows)
+
+### Using Winget
+
+````bash
+### install gitleaks
+winget install gitleaks
+
+### Verify installation:
+gitleaks version
+
+### Scan Git History (Committed Code)
+gitleaks detect
+
+### Scan Current Files (Even Uncommitted)
+gitleaks detect --no-git --source .
+
+### Find Exact File & Line (IMPORTANT)
+gitleaks detect --no-git --source . --verbose
+
+### JSON Report (Best for Analysis)
+
+```🧠 Key Takeaways
+
+.gitignore ≠ security
+
+Deleting file ≠ removing history
+
+Gitleaks scans locally
+
+GitHub protects remotely
+
+Environment variables are mandatory
+
+📌 Conclusion
+
+Using Gitleaks properly ensures:
+
+Secure codebase
+
+No GitHub push blocks
+
+Industry-level best practices
+
+Production-ready workflow
+
+📞 Need Help?
+
+If required, you can further add:
+
+GitHub unblock secret steps
+
+Full pre-commit automation
+
+Production .env strategy
+---
 
 ---
 
@@ -96,3 +203,9 @@ This backend handles APIs for users, courses, and future features like authentic
 **Chhotu Patel**
 
 > **TechEdu – Learn. Build. Grow. 🚀**
+
+````
+
+```
+
+```
