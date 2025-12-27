@@ -143,10 +143,10 @@ If **any commit (past or present)** contains a secret:
 
 ### Using Winget
 
-````bash
 ### install gitleaks
-winget install gitleaks
 
+````bash
+winget install gitleaks
 ### Verify installation:
 gitleaks version
 
@@ -196,7 +196,103 @@ Full pre-commit automation
 Production .env strategy
 ---
 
+
+## 👤 Edit Profile & Avatar Upload (Face-Focused Cropping)
+
+TechEdu provides a modern **Edit Profile** feature that allows users to update their profile information seamlessly without logging out. This section covers the **Edit Profile UI**, **avatar upload**, and **Cloudinary face-focused image cropping** implementation.
+
 ---
+
+### ✨ Features
+
+- Update user **name**
+- **Email is read-only** (cannot be edited)
+- Upload profile picture via:
+  - Click to select file
+  - Drag & drop
+- Automatic **square avatar (250 × 250)**
+- **Face-centered cropping** using Cloudinary AI
+- Optimized image delivery (auto quality & format)
+- Redux state updates instantly (no page refresh)
+- API call triggered **only when changes are detected**
+
+---
+
+### 🧠 How Avatar Cropping Works
+
+Cloudinary stores the **original image**, while transformations are applied at the **delivery (URL) level**.
+
+Instead of saving the original `secure_url`, a **transformed URL** is generated and stored in the database.
+
+#### Transformation Settings
+
+- `crop: fill`
+- `gravity: face`
+- `width: 250`
+- `height: 250`
+- `quality: auto`
+- `fetch_format: auto`
+
+This ensures:
+- Face remains centered
+- Avatar is always square
+- Consistent UI across the platform
+
+---
+
+### 🛠 Backend Implementation
+
+#### Multer (File Upload Middleware)
+
+- Accepts only image files (`jpg`, `jpeg`, `png`)
+- File size limit: **5MB**
+- Stores file temporarily before uploading to Cloudinary
+
+#### Cloudinary Upload Logic
+
+```js
+const result = await cloudinary.uploader.upload(req.file.path, {
+  folder: "TechEdu",
+});
+
+const avatarUrl = cloudinary.url(result.public_id, {
+  width: 250,
+  height: 250,
+  crop: "fill",
+  gravity: "face",
+  quality: "auto",
+  fetch_format: "auto",
+});
+
+user.avatar = avatarUrl;
+```
+
+## And there respection frontend
+---
+## ✏️ Edit Profile Modal (Frontend)
+
+This component provides a modern **Edit Profile modal** allowing users to update their name and profile picture with a smooth UX and optimized API usage.
+
+---
+
+### 🧩 Component: `EditProfile.jsx`
+
+**Key responsibilities:**
+- Load user data from Redux
+- Allow editing **name**
+- Allow updating **avatar (profile picture)**
+- Prevent unnecessary API calls
+- Sync updated data back to Redux
+
+---
+
+### 🔄 State Management
+
+- User data is fetched from **Redux Toolkit**
+- Local state is used for form editing to avoid mutating global state
+
+```js
+const reduxUserData = useSelector((state) => state.userSlice?.userData);
 
 ## 📌 Author
 
