@@ -2,7 +2,7 @@ import TechEdu from "../src/assets/images/TechEdu.png";
 import Home from "./pages/Home";
 import Layout from "./components/layout/Layout";
 import { useDispatch } from "react-redux";
-import { setAuth } from "./stores/user.slice.js";
+import { setAuth, setCourses } from "./stores/user.slice.js";
 
 import {
   createBrowserRouter,
@@ -10,40 +10,81 @@ import {
   createRoutesFromElements,
   RouterProvider,
 } from "react-router-dom";
-import Courses from "./pages/Courses";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
 import Auth from "./pages/Auth";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import api from "./services/api.v1";
 import EditProfile from "./pages/EditProfile.jsx";
+import CreateCourse from "./admin/pages/CreateCourse.jsx";
+import AdminLayout from "./admin/layout/AdminLayout.jsx";
+import Dashboard from "./admin/pages/Dashboard.jsx";
+import Users from "./admin/pages/Users.jsx";
+import Orders from "./admin/pages/Order.jsx";
+import Courses from "./pages/courses/Courses.jsx";
+import CourseDetails from "./pages/courses/CourseDetails.jsx";
+import Checkout from "./pages/checkout/Checkout.jsx";
+import MyCourses from "./pages/courses/MyCourses.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
-    <Route path="" element={<Layout />}>
-      <Route path="" element={<Home />} />
-      <Route path="/courses" element={<Courses />} />
+    <Route path="">
+      <Route path="" element={<Layout />}>
+        <Route path="" element={<Home />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/auth" element={<Auth />} />
+        <Route path="/profile" element={<EditProfile />} />
 
-      <Route path="/about" element={<About />} />
-      <Route path="/contact" element={<Contact />} />
-      <Route path="/auth" element={<Auth />} />
-      <Route path="/profile" element={<EditProfile />} />
+        <Route path="/courses" element={<Courses />} />
+        <Route path="/my-courses" element={<MyCourses />} />
+        <Route path="/courses/:id" element={<CourseDetails />} />
+        <Route path="/checkout/:id" element={<Checkout />} />
+      </Route>
+      {/* ====================Admin routes================= */}
+      <Route path="/admin" element={<AdminLayout />}>
+        <Route path="dashboard" element={<Dashboard />} />
+        <Route path="users" element={<Users />} />
+        {/* <Route path="courses" element={<Courses />} /> */}
+        <Route path="create-course" element={<CreateCourse />} />
+        <Route path="orders" element={<Orders />} />
+      </Route>
     </Route>
   )
 );
 function App() {
   const dispatch = useDispatch();
 
+  const [filteredCourses, setFilteredCourses] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchCourses = async () => {
+      try {
+        const res = await api.get("/course");
+
+        // console.log("API response:", res.data);
+
+        dispatch(setCourses(res.data.courses));
+      } catch (err) {
+        console.error("Fetch courses error:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchCourses();
+  }, [dispatch]);
+
   useEffect(() => {
     const fetchData = async () => {
-      console.log("FetchData from App");
       try {
         const response = await api.get(`user/get-user-profile`, {
           withCredentials: true,
         });
         if (response) {
-          console.log("get-account ==> ");
-          console.log(response.data);
+          // console.log("get-account ==> ");
+          // console.log(response.data);
           dispatch(setAuth(response.data));
         }
       } catch (error) {

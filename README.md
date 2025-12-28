@@ -145,7 +145,7 @@ If **any commit (past or present)** contains a secret:
 
 ### install gitleaks
 
-````bash
+```bash
 winget install gitleaks
 ### Verify installation:
 gitleaks version
@@ -160,6 +160,7 @@ gitleaks detect --no-git --source .
 gitleaks detect --no-git --source . --verbose
 
 ### JSON Report (Best for Analysis)
+```
 
 ```🧠 Key Takeaways
 
@@ -250,7 +251,7 @@ This ensures:
 
 #### Cloudinary Upload Logic
 
-```js
+
 const result = await cloudinary.uploader.upload(req.file.path, {
   folder: "TechEdu",
 });
@@ -268,7 +269,15 @@ user.avatar = avatarUrl;
 ```
 
 ## And there respection frontend
----
+
+# Implementation of Razorpay Payment system
+
+# How user enroll in the course
+
+# assign course to the user
+
+## .... and so on
+
 ## ✏️ Edit Profile Modal (Frontend)
 
 This component provides a modern **Edit Profile modal** allowing users to update their name and profile picture with a smooth UX and optimized API usage.
@@ -278,6 +287,7 @@ This component provides a modern **Edit Profile modal** allowing users to update
 ### 🧩 Component: `EditProfile.jsx`
 
 **Key responsibilities:**
+
 - Load user data from Redux
 - Allow editing **name**
 - Allow updating **avatar (profile picture)**
@@ -300,7 +310,7 @@ const reduxUserData = useSelector((state) => state.userSlice?.userData);
 
 > **TechEdu – Learn. Build. Grow. 🚀**
 
-````
+```
 
 ```
 

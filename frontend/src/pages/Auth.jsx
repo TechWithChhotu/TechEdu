@@ -18,7 +18,6 @@ export default function Auth() {
   const [password, setPassword] = useState(null);
 
   const handleOtpComplete = (otp) => {
-    console.log("OTP Entered:", otp);
     setEnteredOTP(otp);
   };
 
@@ -35,7 +34,6 @@ export default function Auth() {
         phone,
       });
 
-      console.log("OTP Response:", res.data);
       setSendOTPSuccess(res.data.success);
       setUserExist(res.data.exist);
 
@@ -49,8 +47,6 @@ export default function Auth() {
     }
   };
   const handleUserLogin = async () => {
-    console.log("handleUserLogin");
-
     if (enteredOTP < 100000) {
       alert("Enter valid 6 digit OTP");
       return;
@@ -64,11 +60,10 @@ export default function Auth() {
         userOTP: enteredOTP,
       });
 
-      console.log("Sign-in Response: ", res.data);
       if (res.data.success) {
-        console.log("You are login successfully");
+        // console.log("You are login successfully");
         //futher .....Code
-        navigate("");
+        navigate(-1);
       }
     } catch (error) {
       console.error(error);
@@ -79,8 +74,6 @@ export default function Auth() {
   };
 
   const handleUserRegister = async () => {
-    console.log("handleUserRegister");
-
     if (enteredOTP < 100000) {
       alert("Enter valid 6 digit OTP");
       return;
@@ -96,7 +89,7 @@ export default function Auth() {
       });
 
       if (res.data.success) {
-        console.log("OTP Response:", res.data);
+        // console.log("OTP Response:", res.data);
         navigate(-1);
         // futher code......
       }

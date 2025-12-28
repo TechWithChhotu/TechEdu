@@ -236,6 +236,24 @@ const editProfile = async (req, res) => {
   }
 };
 
+const getMyCourses = async (req, res) => {
+  try {
+    const userId = req.user.id;
+
+    const user = await User.findById(userId).populate("enrolledCourses"); // 🔥 MAGIC
+
+    res.status(200).json({
+      success: true,
+      courses: user.enrolledCourses,
+    });
+  } catch (err) {
+    res.status(500).json({
+      success: false,
+      message: "Failed to fetch enrolled courses",
+    });
+  }
+};
+
 // export const editProfile = async (req, res, next) => {
 //   try {
 //     // 1️⃣ Check authentication
@@ -297,4 +315,12 @@ const ping = (req, res) => {
     data: "Pong",
   });
 };
-export { ping, loginOrRegister, login, register, getUserProfile, editProfile };
+export {
+  ping,
+  loginOrRegister,
+  login,
+  register,
+  getUserProfile,
+  editProfile,
+  getMyCourses,
+};

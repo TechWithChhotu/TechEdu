@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useState, useRef, useEffect } from "react";
 import { User, LogOut, BookOpen, Edit } from "lucide-react";
 // import { logout } from "../../redux/slices/authSlice";
-import { setLogout, getUserData } from "../../stores/user.slice.js";
+import { setLogout, selectUserData } from "../../stores/user.slice.js";
 export default function Navbar() {
   // ------------------
   const [open, setOpen] = useState(false);
@@ -39,8 +39,6 @@ export default function Navbar() {
     const checkLogin = async () => {
       const loginStatus = await login;
       setIsLogin(loginStatus);
-
-      console.log("Login (isLogin)=> ", loginStatus);
     };
     checkLogin();
   }, [login]);
@@ -49,8 +47,8 @@ export default function Navbar() {
     const getData = async () => {
       const userdata = await data;
       setUserData(userdata);
-      console.log("userData: ");
-      console.log(userData);
+      // console.log("userData: ");
+      // console.log(userData);
     };
     getData();
   }, [data]);

@@ -40,6 +40,10 @@ const userSchema = new mongoose.Schema(
         type: mongoose.Schema.Types.ObjectId,
         ref: "Course",
       },
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Order",
+      },
     ],
     forgotPasswordToken: String,
     forgotPasswordExpire: Date,

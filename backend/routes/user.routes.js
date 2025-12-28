@@ -1,6 +1,7 @@
 import express from "express";
 import {
   editProfile,
+  getMyCourses,
   getUserProfile,
   login,
   loginOrRegister,
@@ -22,5 +23,6 @@ userRoute.put(
   upload.single("avatar"),
   editProfile
 );
+userRoute.get("/my-courses", isLoggedIn, getMyCourses);
 
 export default userRoute;

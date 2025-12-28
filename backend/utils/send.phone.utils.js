@@ -12,8 +12,6 @@ const twilioClient = createTwilioClient(accountSid, authToken);
 import { generateOTP } from "../helper/helper.js";
 
 const sendOTPonNumber = async (clientPhoneNumber = "+918920823219") => {
-  console.log("Send OTP on Number --> called");
-
   try {
     const OTP = generateOTP();
     return await twilioClient.messages

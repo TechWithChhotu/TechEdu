@@ -6,8 +6,6 @@ import mongoDbConfig from "./config/mongoose.config.js";
 config();
 import v2 from "cloudinary";
 
-console.log("CLOUD_NAME: ", process.env.CLOUDINARY_CLOUD_NAME);
-
 /*----------------->> Cloudinary configuration<<-----------------*/
 v2.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
