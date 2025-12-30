@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 const MyCourseCard = ({ course }) => {
   return (
     <div className="bg-white rounded-xl shadow hover:shadow-lg transition">
@@ -11,9 +12,12 @@ const MyCourseCard = ({ course }) => {
         <h3 className="font-semibold text-lg">{course.title}</h3>
         <p className="text-sm text-gray-500">By {course.createdBy}</p>
 
-        <button className="mt-4 w-full bg-indigo-600 text-white py-2 rounded-lg hover:bg-indigo-700">
+        <Link
+          to={`${course._id}`}
+          className="mt-4 w-full bg-indigo-600 text-white py-2 rounded-lg hover:bg-indigo-700 px-5"
+        >
           Continue Learning
-        </button>
+        </Link>
       </div>
     </div>
   );

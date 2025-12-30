@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import HeroImageStudyMode from "../assets/images/hero-bg.png";
 import Counter from "../components/common/CounterDown";
-import FounterImage from "../assets/images/FounterHalfbg.png";
+import FounderImage from "../assets/images/FounderHalfbg.png";
 import Typewriter from "../components/common/Typewriter";
 import TechEdu from "../assets/images/TechEdu.png";
 export default function Home() {
@@ -81,7 +81,7 @@ export default function Home() {
           {/* Right Image */}
           <div className="flex justify-center">
             <img
-              src={FounterImage}
+              src={FounderImage}
               alt="founders"
               className="rounded-3xl shadow-2xl max-w-md h-96 object-cover"
             />

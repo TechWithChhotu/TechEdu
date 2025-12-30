@@ -75,6 +75,8 @@ const getAllCourses = async (req, res, next) => {
 
 /*======================getCourseById======================*/
 const getCourseById = async (req, res, next) => {
+  console.log("getCourseByID called");
+
   try {
     const { id } = req.params;
     const course = await Course.findById(id);
@@ -291,6 +293,136 @@ const removeCourse = async (req, res, next) => {
     return res.status(400).json({
       success: false,
       message: `file not uploaded please try again, ERROR: ${err.message}`,
+    });
+  }
+};
+
+// controllers/teacher.course.controller.js
+
+/* =====================================================
+   ADD MODULE
+===================================================== */
+export const addModule = async (req, res) => {
+  try {
+    const { courseId } = req.params;
+    const { moduleTitle, moduleDescription } = req.body;
+
+    if (!moduleTitle) {
+      return res.status(400).json({
+        success: false,
+        message: "Module title is required",
+      });
+    }
+
+    const course = await Course.findById(courseId);
+    if (!course) {
+      return res.status(404).json({
+        success: false,
+        message: "Course not found",
+      });
+    }
+
+    course.syllabus.push({
+      moduleTitle,
+      moduleDescription,
+      lectures: [],
+    });
+
+    await course.save();
+
+    res.status(201).json({
+      success: true,
+      message: "Module added successfully",
+      syllabus: course.syllabus,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "Failed to add module",
+      error: error.message,
+    });
+  }
+};
+
+/* =====================================================
+   ADD LECTURE (RECORDED / LIVE)
+===================================================== */
+export const addLecture = async (req, res) => {
+  const { courseId } = req.params;
+  const { title, description, type } = req.body;
+  console.log("courseId: ", courseId);
+
+  const course = await Course.findById(courseId);
+  if (!course) {
+    return res.status(404).json({ message: "Course not found" });
+  }
+
+  let videoUrl = "";
+  console.log("Check(addLecture) ==> 1");
+
+  if (type === "recorded") {
+    if (!req.file) {
+      return res.status(400).json({ message: "Video file required" });
+    }
+    console.log("Check(addLecture) ==> 2");
+    console.log("req.file==> ", req.file);
+
+    // const result = await cloudinary.uploader.upload(req.file.path, {
+    //   resource_type: "video",
+    //   folder: "TechEdu/Lectures",
+    // });
+    const result = await v2.uploader.upload(req.file.path, {
+      resource_type: "video",
+      folder: "TechEdu/Lectures",
+    });
+    console.log("Check(addLecture) ==> 3");
+
+    videoUrl = result.secure_url;
+    console.log("video url = ", videoUrl);
+  }
+
+  if (type === "live") {
+    videoUrl = `https://meet.jit.si/TechEdu-${courseId}-${Date.now()}`;
+  }
+  console.log("Check(addLecture) ==> 4");
+
+  course.lectures.push({
+    title,
+    description,
+    video: videoUrl,
+    type,
+  });
+  console.log("Check(addLecture) ==> 5");
+
+  course.numberOfLectures += 1;
+  await course.save();
+
+  res.status(201).json({
+    success: true,
+    message: "Lecture added successfully",
+    data: course,
+  });
+};
+
+/* =====================================================
+   START LIVE CLASS (JITSI)
+===================================================== */
+export const startLiveClass = async (req, res) => {
+  try {
+    const { courseId } = req.params;
+
+    const meetingId = `TechEdu-${courseId}-${Date.now()}`;
+    const meetingLink = `https://meet.jit.si/${meetingId}`;
+
+    res.status(200).json({
+      success: true,
+      meetingId,
+      meetingLink,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "Failed to start live class",
     });
   }
 };

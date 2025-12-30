@@ -1,5 +1,5 @@
 import React from "react";
-import TalkFullBG from "../assets/images/FounterFullbg.png";
+import TalkFullBG from "../assets/images/FounderFullbg.png";
 import Completethemission from "../assets/icons/complete-the-mission.svg";
 
 const About = () => {

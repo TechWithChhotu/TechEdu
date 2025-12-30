@@ -276,6 +276,8 @@ user.avatar = avatarUrl;
 
 # assign course to the user
 
+# add & watch lecture
+
 ## .... and so on
 
 ## ✏️ Edit Profile Modal (Frontend)

@@ -25,6 +25,11 @@ import Courses from "./pages/courses/Courses.jsx";
 import CourseDetails from "./pages/courses/CourseDetails.jsx";
 import Checkout from "./pages/checkout/Checkout.jsx";
 import MyCourses from "./pages/courses/MyCourses.jsx";
+import EmployeeLayout from "./employees/EmployeeLayout.jsx";
+import EmployeeDashboard from "./employees/EmployeeDashboard.jsx";
+import CourseLectures from "./pages/courses/CourseLecture.jsx";
+import AddLectureModal from "./pages/courses/AddLecture.jsx";
+import WatchLecture from "./pages/watch/WatchLecture.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -38,6 +43,8 @@ const router = createBrowserRouter(
 
         <Route path="/courses" element={<Courses />} />
         <Route path="/my-courses" element={<MyCourses />} />
+        <Route path="/my-courses/:courseId" element={<WatchLecture />} />
+
         <Route path="/courses/:id" element={<CourseDetails />} />
         <Route path="/checkout/:id" element={<Checkout />} />
       </Route>
@@ -48,6 +55,16 @@ const router = createBrowserRouter(
         {/* <Route path="courses" element={<Courses />} /> */}
         <Route path="create-course" element={<CreateCourse />} />
         <Route path="orders" element={<Orders />} />
+      </Route>
+
+      <Route path="/emp" element={<EmployeeLayout />}>
+        <Route path="dashboard" element={<EmployeeDashboard />} />
+        <Route path="courses" element={<MyCourses />} />
+        <Route path="course/:courseId/content" element={<CourseLectures />} />
+        <Route path="add-lecture" element={<CourseLectures />} />
+        <Route path="add-lecture/:courseId" element={<AddLectureModal />} />
+
+        {/* emp/add-lecture/6950e85de9fc9c3dd08b9375 */}
       </Route>
     </Route>
   )

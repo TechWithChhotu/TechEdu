@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
 import api from "../../services/api.v1";
 import MyCourseCard from "./MyCourseCard";
+import { useNavigate } from "react-router-dom";
 
 const MyCourses = () => {
   const [courses, setCourses] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  const navigate = useNavigate();
   useEffect(() => {
     const fetchMyCourses = async () => {
       try {

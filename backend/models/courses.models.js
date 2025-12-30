@@ -39,6 +39,7 @@ const syllabusSchema = new mongoose.Schema({
 
 const courseSchema = new mongoose.Schema(
   {
+    lectures: [lectureSchema],
     /* ================= Category ================= */
     category: {
       type: String,
