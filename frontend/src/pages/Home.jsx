@@ -4,6 +4,7 @@ import Counter from "../components/common/CounterDown";
 import FounderImage from "../assets/images/FounderHalfbg.png";
 import Typewriter from "../components/common/Typewriter";
 import TechEdu from "../assets/images/TechEdu.png";
+import PaginationSections from "../components/PaginationSections";
 export default function Home() {
   return (
     <main className="w-full">
@@ -88,6 +89,7 @@ export default function Home() {
           </div>
         </div>
       </section>
+      <PaginationSections />
     </main>
   );
 }

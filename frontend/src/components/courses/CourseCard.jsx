@@ -1,8 +1,11 @@
 import { Star } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-
+import { useSelector } from "react-redux";
+import { selectUserData } from "../../stores/user.slice";
 const CourseCard = ({ course }) => {
   const navigate = useNavigate();
+  const user = useSelector(selectUserData);
+  console.log("user(cousecard.jsx)==>", user.data.role);
 
   const {
     _id,
@@ -71,25 +74,27 @@ const CourseCard = ({ course }) => {
         </div>
 
         {/* CTA Buttons */}
-        <div className="flex gap-3 pt-2">
-          {/* View */}
-          <button
-            onClick={() => navigate(`/courses/${_id}`)}
-            className="w-1/2 border border-indigo-600 text-indigo-600 
+        {user?.data?.role !== "" && (
+          <div className="flex gap-3 pt-2">
+            {/* View */}
+            <button
+              onClick={() => navigate(`/courses/${_id}`)}
+              className="w-1/2 border border-indigo-600 text-indigo-600 
                        hover:bg-indigo-50 font-semibold py-2 rounded-lg transition"
-          >
-            View
-          </button>
+            >
+              View
+            </button>
 
-          {/* Buy */}
-          <button
-            onClick={() => navigate(`/checkout/${_id}`)}
-            className="w-1/2 bg-indigo-600 hover:bg-indigo-700 
+            {/* Buy */}
+            <button
+              onClick={() => navigate(`/checkout/${_id}`)}
+              className="w-1/2 bg-indigo-600 hover:bg-indigo-700 
                        text-white font-semibold py-2 rounded-lg transition"
-          >
-            Buy Now
-          </button>
-        </div>
+            >
+              Buy Now
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );

@@ -20,7 +20,7 @@ const EmployeeSidebar = () => {
       </h1>
 
       <nav className="space-y-2">
-        <NavLink to="/teacher/dashboard" className={linkClass}>
+        <NavLink to="/emp/dashboard" className={linkClass}>
           <LayoutDashboard size={18} /> Dashboard
         </NavLink>
 
@@ -31,28 +31,19 @@ const EmployeeSidebar = () => {
         <NavLink to="add-lecture" className={linkClass}>
           <Video size={18} /> Add lecture
         </NavLink>
-        <NavLink to="/teacher/live" className={linkClass}>
+        <NavLink to="add-resources" className={linkClass}>
+          <ClipboardList size={18} /> Add resourses
+        </NavLink>
+        <NavLink to="#" className={linkClass}>
           <Video size={18} /> Live Classes
         </NavLink>
 
-        <NavLink to="/teacher/lectures" className={linkClass}>
-          <Video size={18} /> Recorded Lectures
-        </NavLink>
-
-        <NavLink to="/teacher/assignments" className={linkClass}>
-          <ClipboardList size={18} /> Assignments
-        </NavLink>
-
-        <NavLink to="/teacher/quizzes" className={linkClass}>
+        <NavLink to="#" className={linkClass}>
           <HelpCircle size={18} /> Quizzes
         </NavLink>
 
-        <NavLink to="/teacher/students" className={linkClass}>
-          <Users size={18} /> Students
-        </NavLink>
-
-        <NavLink to="/teacher/earnings" className={linkClass}>
-          <Wallet size={18} /> Earnings
+        <NavLink to="#" className={linkClass}>
+          <BookOpen size={18} /> Today Classes
         </NavLink>
       </nav>
     </aside>

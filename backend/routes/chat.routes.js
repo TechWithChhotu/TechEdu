@@ -6,32 +6,47 @@ import { getCollection } from "../services/chroma.js";
 const chatRoute = express.Router();
 
 chatRoute.post("/", async (req, res) => {
-  const { question } = req.body;
+  try {
+    const { question, text } = req.body;
 
-  const embedding = await createEmbedding(question);
-  const collection = await getCollection();
+    const greetings = ["hi", "hello", "hey"];
 
-  const result = await collection.query({
-    queryEmbeddings: [embedding],
-    nResults: 3,
-  });
+    if (greetings.includes(question.toLowerCase().trim())) {
+      return res.json({
+        botMessage: "Hi 👋 Welcome to TechEdu! How can I help you today?",
+      });
+    }
 
-  const context = result.documents.flat().join("\n");
+    const userQuery = question || text;
 
-  const prompt = `
-You are TechEdu AI Assistant.
-Answer ONLY from TechEdu content below.
-If not found, say: "This information is not available in TechEdu yet."
+    const collection = await getCollection();
 
-TechEdu Content:
-${context}
+    // 1️⃣ Embedding
+    const embedding = await createEmbedding(userQuery);
 
-Question: ${question}
-`;
+    // 2️⃣ Query Chroma
+    const results = await collection.query({
+      queryEmbeddings: [embedding],
+      nResults: 1,
+    });
 
-  const answer = await generateAnswer(prompt);
+    const docs = results.documents?.[0] || [];
 
-  res.json({ answer });
+    if (docs.length === 0) {
+      return res.json({
+        botMessage: "I couldn't find relevant information yet.",
+      });
+    }
+
+    res.json({
+      botMessage: docs.join("\n"),
+    });
+  } catch (err) {
+    console.error(err.message);
+    res.json({
+      botMessage: "Something went wrong, please try again.",
+    });
+  }
 });
 
 export default chatRoute;

@@ -42,11 +42,21 @@ export default function AddLecture() {
           "Content-Type": "multipart/form-data",
         },
       });
-
       console.log("Lecture added:", res.data);
+      setLecture({
+        title: "",
+        description: "",
+        type: "",
+        moduleTitle: "",
+        thumbnail: null,
+        video: null,
+        duration: null,
+      });
+      alert("Lecture added successfully");
+      navigate(-1);
     } catch (err) {
       console.error(err);
-      alert("Something went wrong");
+      alert("Something went wrong:");
     }
   };
 
@@ -102,7 +112,7 @@ export default function AddLecture() {
               value={lecture.type}
               onChange={(e) => setLecture({ ...lecture, type: e.target.value })}
             >
-              <option value="recorded">Select lecture type</option>
+              <option value="null">Select lecture type</option>
 
               <option value="recorded">Recorded Lecture</option>
               <option value="live">Live Class</option>

@@ -1,30 +1,129 @@
 import mongoose from "mongoose";
 
-const lectureSchema = new mongoose.Schema({
-  title: {
-    type: String,
-    required: true,
+// const lectureSchema = new mongoose.Schema({
+//   title: {
+//     type: String,
+//     required: true,
+//   },
+//   description: {
+//     type: String,
+//     required: true,
+//   },
+//   thumbnail: {
+//     type: String,
+//     default:
+//       "https://th.bing.com/th/id/OIP.PK7cvUTwXYCH2CHvcMJjQgHaEK?w=249&h=180&c=7&r=0&o=5&dpr=1.5&pid=1.7",
+//     required: [true, "Thumbnail of the course is required"],
+//   },
+//   video: {
+//     type: String,
+//     default:
+//       "https://th.bing.com/th/id/OIP.PK7cvUTwXYCH2CHvcMJjQgHaEK?w=249&h=180&c=7&r=0&o=5&dpr=1.5&pid=1.7",
+//   },
+//   duration: {
+//     type: Number, // minutes
+//     default: 0,
+//   },
+// });
+/* =======================
+   Resource Sub-Schema
+   ======================= */
+const resourceSchema = new mongoose.Schema(
+  {
+    title: {
+      type: String,
+      required: true, // e.g. "Lecture Notes PDF"
+    },
+    type: {
+      type: String,
+      enum: ["pdf", "link", "code", "doc", "other"],
+      default: "other",
+    },
+    url: {
+      type: String,
+      required: true, // file URL or external link
+    },
   },
-  description: {
-    type: String,
-    required: true,
+  { _id: false }
+);
+
+/* =======================
+   Comment Sub-Schema
+   ======================= */
+const commentSchema = new mongoose.Schema(
+  {
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      // required: true,
+    },
+    message: {
+      type: String,
+      required: true,
+    },
+    createdAt: {
+      type: Date,
+      default: Date.now,
+    },
   },
-  thumbnail: {
-    type: String,
-    default:
-      "https://th.bing.com/th/id/OIP.PK7cvUTwXYCH2CHvcMJjQgHaEK?w=249&h=180&c=7&r=0&o=5&dpr=1.5&pid=1.7",
-    required: [true, "Thumbnail of the course is required"],
+  { _id: false }
+);
+
+/* =======================
+   Lecture Schema
+   ======================= */
+const lectureSchema = new mongoose.Schema(
+  {
+    title: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+
+    description: {
+      type: String,
+      required: true,
+    },
+
+    thumbnail: {
+      type: String,
+      default:
+        "https://th.bing.com/th/id/OIP.PK7cvUTwXYCH2CHvcMJjQgHaEK?w=249&h=180&c=7&r=0&o=5&dpr=1.5&pid=1.7",
+      required: true,
+    },
+
+    video: {
+      type: String, // Cloudinary / S3 / YouTube URL
+      // required: true,
+
+      default: "",
+    },
+
+    duration: {
+      type: Number, // in minutes
+      default: 0,
+    },
+
+    /* =======================
+       Resources (PDF, Links)
+       ======================= */
+    resources: {
+      type: [resourceSchema],
+      default: [],
+    },
+
+    /* =======================
+       Lecture Comments
+       ======================= */
+    comments: {
+      type: [commentSchema],
+      default: [],
+    },
   },
-  video: {
-    type: String,
-    default:
-      "https://th.bing.com/th/id/OIP.PK7cvUTwXYCH2CHvcMJjQgHaEK?w=249&h=180&c=7&r=0&o=5&dpr=1.5&pid=1.7",
-  },
-  duration: {
-    type: Number, // minutes
-    default: 0,
-  },
-});
+  {
+    timestamps: true, // createdAt & updatedAt
+  }
+);
 
 const syllabusSchema = new mongoose.Schema({
   moduleTitle: {
@@ -152,7 +251,7 @@ const courseSchema = new mongoose.Schema(
         user: {
           type: mongoose.Schema.Types.ObjectId,
           ref: "User",
-          required: true,
+          // required: true,
         },
         order: {
           type: mongoose.Schema.Types.ObjectId,

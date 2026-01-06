@@ -5,6 +5,7 @@ import cors from "cors";
 import courseRoute from "./routes/course.routes.js";
 import paymentRoute from "./routes/payment.routes.js";
 import chatRoute from "./routes/chat.routes.js";
+import lectureRoute from "./routes/lecture.routes.js";
 
 const app = express();
 
@@ -21,6 +22,8 @@ app.use(cookieParser());
 app.use("/api/v1/user/", userRoute);
 app.use("/api/v1/course/", courseRoute);
 app.use("/api/v1/payment/", paymentRoute);
-app.use("/api/techedu-ai", chatRoute);
+app.use("/api/v1/techedu-ai", chatRoute);
+
+app.use("/api/v1/course", lectureRoute);
 
 export default app;

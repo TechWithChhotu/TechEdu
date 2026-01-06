@@ -35,7 +35,8 @@ export default function WatchLecture() {
   if (!courseData) return <p>Course not found</p>;
 
   return (
-    <div className="h-screen">
+    <div className="h-screen overflow-scroll hide-scrollbar ">
+      {/* h-[calc(100vh-8rem)] */}
       <h2 className="text-center text-green-500 bg-black font-bold font-mono">
         {courseData?.title}
       </h2>

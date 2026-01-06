@@ -305,12 +305,19 @@ This component provides a modern **Edit Profile modal** allowing users to update
 
 ```js
 const reduxUserData = useSelector((state) => state.userSlice?.userData);
+```
+
+# add lecture/ add comment/ add resourses features added
+
+# Seprates how show user/teacter/admin
 
 ## 📌 Author
 
 **Chhotu Patel**
 
 > **TechEdu – Learn. Build. Grow. 🚀**
+
+```
 
 ```
 

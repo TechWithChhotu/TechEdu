@@ -55,9 +55,16 @@
 
 // export default LectureTabs;
 import { useState } from "react";
+import { Tabs, Tab, Box } from "@mui/material";
+// import LectureComments from "./LectureComments";
+import LectureComments from "../../components/courses/LectureComments.jsx";
+import LectureResources from "../../components/lecture/LectureResources.jsx";
 
 export default function LectureTabs({ lecture }) {
   const [tab, setTab] = useState("overview");
+  const lectureId = lecture?._id;
+  console.log("lecture==> ");
+  console.log(lecture);
 
   if (!lecture) return null;
 
@@ -66,7 +73,7 @@ export default function LectureTabs({ lecture }) {
       {/* Tabs */}
       <div className="flex gap-6 border-b mb-4">
         {["overview", "resources", "comments"].map((t) => (
-          <button
+          <tabs
             key={t}
             onClick={() => setTab(t)}
             className={`pb-2 ${
@@ -76,7 +83,7 @@ export default function LectureTabs({ lecture }) {
             }`}
           >
             {t.toUpperCase()}
-          </button>
+          </tabs>
         ))}
       </div>
 
@@ -86,11 +93,16 @@ export default function LectureTabs({ lecture }) {
       )}
 
       {tab === "resources" && (
-        <p className="text-gray-500">Notes & resources coming soon</p>
+        <div className="text-gray-500">
+          {console.log("current lecture ==> ", lecture.resources)}
+          <LectureResources resources={lecture.resources} />
+        </div>
       )}
 
       {tab === "comments" && (
-        <p className="text-gray-500">Discussion feature coming soon</p>
+        <div className="text-gray-500">
+          {<LectureComments lectureId={lectureId} />}
+        </div>
       )}
     </div>
   );

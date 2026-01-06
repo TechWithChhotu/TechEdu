@@ -30,6 +30,8 @@ import EmployeeDashboard from "./employees/EmployeeDashboard.jsx";
 import CourseLectures from "./pages/courses/CourseLecture.jsx";
 import AddLectureModal from "./pages/courses/AddLecture.jsx";
 import WatchLecture from "./pages/watch/WatchLecture.jsx";
+import AddLectureResources from "./employees/AddLectureResources.jsx";
+import AllCourses from "./admin/pages/AllCourses.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -52,7 +54,7 @@ const router = createBrowserRouter(
       <Route path="/admin" element={<AdminLayout />}>
         <Route path="dashboard" element={<Dashboard />} />
         <Route path="users" element={<Users />} />
-        {/* <Route path="courses" element={<Courses />} /> */}
+        <Route path="courses" element={<AllCourses />} />
         <Route path="create-course" element={<CreateCourse />} />
         <Route path="orders" element={<Orders />} />
       </Route>
@@ -62,7 +64,13 @@ const router = createBrowserRouter(
         <Route path="courses" element={<MyCourses />} />
         <Route path="course/:courseId/content" element={<CourseLectures />} />
         <Route path="add-lecture" element={<CourseLectures />} />
+        <Route path="add-resources" element={<CourseLectures />} />
+
         <Route path="add-lecture/:courseId" element={<AddLectureModal />} />
+        <Route
+          path="add-resources/:courseId"
+          element={<AddLectureResources />}
+        />
 
         {/* emp/add-lecture/6950e85de9fc9c3dd08b9375 */}
       </Route>

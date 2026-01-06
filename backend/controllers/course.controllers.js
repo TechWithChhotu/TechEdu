@@ -75,8 +75,6 @@ const getAllCourses = async (req, res, next) => {
 
 /*======================getCourseById======================*/
 const getCourseById = async (req, res, next) => {
-  console.log("getCourseByID called");
-
   try {
     const { id } = req.params;
     const course = await Course.findById(id);
