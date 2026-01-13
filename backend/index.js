@@ -5,6 +5,7 @@ import { config } from "dotenv";
 import mongoDbConfig from "./config/mongoose.config.js";
 config();
 import v2 from "cloudinary";
+import { connectRedis } from "./helper/redis.helper.js";
 
 /*----------------->> Cloudinary configuration<<-----------------*/
 v2.config({
@@ -13,8 +14,10 @@ v2.config({
   api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 const port = process.env.PORT || 3001;
-
-app.listen(port, async () => {
+(async () => {
+  await connectRedis();
   await mongoDbConfig();
+})();
+app.listen(port, async () => {
   console.log(`App is running on http://localhost:${port}`);
 });

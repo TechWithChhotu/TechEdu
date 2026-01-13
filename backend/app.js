@@ -10,9 +10,13 @@ import lectureRoute from "./routes/lecture.routes.js";
 const app = express();
 
 app.use(express.json());
+const allowedOrigin = [
+  "https://techedu26.netlify.app",
+  "http://localhost:5173",
+];
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: allowedOrigin,
     methods: ["GET", "POST", "PUT"],
     credentials: true,
   })
