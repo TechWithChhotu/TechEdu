@@ -59,11 +59,13 @@ export default function Auth() {
         phone,
         userOTP: enteredOTP,
       });
-
+      console.log("====================================");
+      console.log(res.data.success);
+      console.log("====================================");
       if (res.data.success) {
         // console.log("You are login successfully");
         //futher .....Code
-        navigate(-1);
+        navigate("/");
       }
     } catch (error) {
       console.error(error);

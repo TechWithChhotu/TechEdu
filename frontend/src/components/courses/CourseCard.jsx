@@ -5,7 +5,7 @@ import { selectUserData } from "../../stores/user.slice";
 const CourseCard = ({ course }) => {
   const navigate = useNavigate();
   const user = useSelector(selectUserData);
-  console.log("user(cousecard.jsx)==>", user.data.role);
+  console.log("user(cousecard.jsx)==>", user?.data?.role);
 
   const {
     _id,

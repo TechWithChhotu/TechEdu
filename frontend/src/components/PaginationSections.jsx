@@ -12,6 +12,8 @@ const sections = [
     subtitle: "Your Aspiration is our Goal",
     desc: "Our mentors guide you to become a thorough professional.",
     image: img1,
+    centerText: "Your Aspiration is our Goal",
+    circleColor: "bg-blue-500",
   },
   {
     id: 2,
@@ -20,6 +22,8 @@ const sections = [
     subtitle: "From Learning To Earning",
     desc: "Placement support, mock interviews & job offers.",
     image: img2,
+    centerText: "From Learning To Earning",
+    circleColor: "bg-green-400",
   },
   {
     id: 3,
@@ -28,6 +32,8 @@ const sections = [
     subtitle: "Earn your Experience Letter",
     desc: "Work on real-world projects & internships.",
     image: img3,
+    centerText: "Earn Your Experience Latter",
+    circleColor: "bg-red-600",
   },
   {
     id: 4,
@@ -36,6 +42,8 @@ const sections = [
     subtitle: "Learning Made For Everyone",
     desc: "Self-paced & live courses available.",
     image: img4,
+    centerText: "Learning Mode For EveryOne",
+    circleColor: "bg-pink-500",
   },
 ];
 
@@ -58,11 +66,11 @@ const PaginationSections = () => {
 
           {/* ✅ CENTER (PER PAGE) */}
           <div
-            className="absolute top-1/2 left-1/2 
+            className={`absolute top-1/2 left-1/2 
         -translate-x-1/2 -translate-y-1/2
-        h-40 w-40 rounded-full bg-red-500
+        h-40 w-40 rounded-full 
         flex items-center justify-center
-        text-white font-bold z-20  no-click"
+        text-white font-bold z-20  no-click text-center px-10 ${sec.circleColor}`}
           >
             {sec.centerText}
           </div>
